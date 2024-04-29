@@ -1,12 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import google.generativeai as genai
-
-model = genai.GenerativeModel('gemini-pro')
-
 import os
-my_api_key_gemini = os.getenv('my_new_api_key_here')
-
-genai.configure(api_key=my_api_key_gemini)
 
 app = Flask(__name__)
 
@@ -21,6 +15,13 @@ def index():
         try:
             prompt = request.form['prompt']
             question = prompt
+
+            # Replace with your actual Google Gemini API key
+            api_key = os.getenv('AIzaSyD7vIY6ALNJqYR2C4T-Z-J8DaKw3rzNoiw')
+            genai.configure(api_key=api_key)
+
+            # Use the desired Gemini model
+            model = genai.GenerativeModel('gemini-pro')
 
             response = model.generate_content(question)
 
